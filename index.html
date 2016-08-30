@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<style>
+		#container{
+			width: 600px;
+			height: 600px;
+			overflow: hidden;
+			margin: 0 auto;
+			background: lightblue;
+			position: relative;
+		}
+		.tile{
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			background: blue;
+			color: white;
+			float: left;
+		}
+		Button.sort {
+			margin-left: 10px;
+		}
+
+		.tiles-container {
+			background: #f78787;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid #fff;
+		}
+	
+	</style>
+	<body onload="myFun()">
+		<div id="sorts">
+			<span>Order By: </span><Button class="sort" onclick="sortByName()">Name</Button><Button class="sort" onclick="sortByAge()">Age</Button><Button class="sort" onclick="sortByPlace()">Place</Button><Button class="sort" onclick="sortByGender()">Gender</Button>
+		</div>
+		<div id="container" ></div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+	
+	var arr= [];
+	var configValue = ['0,0','150px,0','300px,0','450px,0',
+		         '0,150px','150px,150px','300px,150px','450px,150px',
+				 '0,300px','150px,300px','300px,300px','450px,300px',
+				 '0,450px','150px,450px','300px,450px','450px,450px'];
+	function myFun(){
+		var _temp = "";			
+		for(var i=0;i<16;i++){
+			var gender = i % 2 === 0 ? 'male' : 'female'; 
+			var name = 'Name'+i;
+			var age = Math.floor((Math.random() * 100) + 1);
+			var place = 'Dubai_'+i+'_'+Math.floor((Math.random() * 10) + 1);
+			var divId = 'tiles_'+i;
+			var obj = {
+			 name : name,
+			 age : age,
+			 place : place,
+			 gender: gender,
+			 divId: divId				 
+			};
+			arr.push(obj);
+			_temp = _temp + '<div class="tile" id='+divId+' style="left:'+configValue[i].split(",")[0]+';top:'+configValue[i].split(",")[1]+';"><div class="tiles-container"><div class="name">Name: '+name+'</div><div class="age">Age: '+age+'</div><div class="place">Place: '+place+'</div><div class="gender">Gender: '+gender+'</div></div></div>';
+		}
+		document.getElementById("container").innerHTML+=_temp;
+	}
+	function animate(){
+		for(var i =0;i<arr.length;i++){
+		$("#"+arr[i]['divId']).css({
+			position : 'absolute'
+		}).animate({
+			left : configValue[i].split(",")[0], 
+			top : configValue[i].split(",")[1]
+		},500);
+		}
+	}
+	function sortByName(){
+		arr.sort(function(a,b){
+			var c = a.name.toLowerCase(),
+				d = b.name.toLowerCase();
+			return c > d ? 1 : c < d ? -1 : 0;
+		});
+		animate();
+		
+	}
+	function sortByAge(){
+		arr.sort(function(a,b){				
+			return parseInt(a.age) - parseInt(b.age);
+		});
+		animate();
+	}
+	function sortByPlace(){
+		arr.sort(function(a,b){	
+			var c = a.place.toLowerCase(),
+				d = b.place.toLowerCase();
+			return c > d ? 1 : c < d ? -1 : 0;
+		});
+		animate();
+	}
+	function sortByGender(){
+		arr.sort(function(a,b){
+			var c = a.gender.toLowerCase(),
+				d = b.gender.toLowerCase();
+			return c > d ? 1 : c < d ? -1 : 0;
+		});
+		animate();
+	}
+		
+	</script>
+	</body>
+</html>
