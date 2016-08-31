@@ -16,7 +16,6 @@
 			position: absolute;
 			width: 150px;
 			height: 150px;
-			background: blue;
 			color: white;
 			float: left;
 		}
@@ -25,13 +24,11 @@
 		}
 
 		.tiles-container {
-			background: #f78787;
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			border: 1px solid #fff;
 		}
 	
 	</style>
@@ -48,6 +45,7 @@
 		         '0,150px','150px,150px','300px,150px','450px,150px',
 				 '0,300px','150px,300px','300px,300px','450px,300px',
 				 '0,450px','150px,450px','300px,450px','450px,450px'];
+	var colors = ['#F44336','#E91E63','#9C27B0','#673AB7','#3F51B5','#2196F3','#03A9F4','#00BCD4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFEB3B','#FFC107','#FF9800','#FF5722'];
 	function myFun(){
 		var _temp = "";			
 		for(var i=0;i<16;i++){
@@ -64,7 +62,7 @@
 			 divId: divId				 
 			};
 			arr.push(obj);
-			_temp = _temp + '<div class="tile" id='+divId+' style="left:'+configValue[i].split(",")[0]+';top:'+configValue[i].split(",")[1]+';"><div class="tiles-container"><div class="name">Name: '+name+'</div><div class="age">Age: '+age+'</div><div class="place">Place: '+place+'</div><div class="gender">Gender: '+gender+'</div></div></div>';
+			_temp = _temp + '<div class="tile" id='+divId+' style="left:'+configValue[i].split(",")[0]+';top:'+configValue[i].split(",")[1]+';background:'+colors[i]+'"><div class="tiles-container"><div class="name">Name: '+name+'</div><div class="age">Age: '+age+'</div><div class="place">Place: '+place+'</div><div class="gender">Gender: '+gender+'</div></div></div>';
 		}
 		document.getElementById("container").innerHTML+=_temp;
 	}
